@@ -143,7 +143,41 @@ var resultOfStuff = turnThisNumberForMe%
  For example, [1,2] + [3,4] = [4,6]. If the array count size are not the same, then return nil
  */
 
-//: UNSURE HOW TO FINISH
+//extension Array where Element: Numeric {
+//
+
+func +(left: [Int], right:[Int]) -> [Int]?
+{
+  print("overload called")
+  //make sure the array counts are the same
+  guard left.count == right.count else
+  {
+    return nil
+  }
+  
+  var output: [Int] = [Int]()
+  for index in 0..<left.count{
+    output.append(left[index] + right[index])
+  }
+  
+  return output
+}
+
+
+let array1 = [1, 2]
+let array2 = [3, 4]
+
+//let test = Array.my(left: array1, right: array2)
+
+let arraySum = array1 + array2
+
+
+
+
+
+
+
+//: NEED CODE REVIEW AS DID NOT WRITE ALL THIS ON OWN
 //:-
 
 //: [Next](@next)

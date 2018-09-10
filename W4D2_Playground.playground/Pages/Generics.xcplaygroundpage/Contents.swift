@@ -97,7 +97,37 @@ returningTheIndex(arrayOfElements: array, elementInArray: 5)
  - dequeue: remove an item from the queue, and return the removed element
  */
 
-//: UNSURE HOW TO FINISH
+
+struct Queue<Element>
+{
+  var elementArray = [Element]()
+  
+  mutating func enqueue(value: Element){
+    elementArray.append(value)
+  }
+  mutating func dequeue() -> Element {
+    return elementArray.remove(at: 0)
+  }
+}
+
+var myQueue:Queue<String> = Queue<String>()
+myQueue.enqueue(value: "Customer 1")
+myQueue.enqueue(value: "Customer 2")
+myQueue.enqueue(value: "Customer 3")
+
+print(myQueue)
+myQueue.dequeue()
+print(myQueue)
+
+
+
+
+
+
+
+
+
+//: NEED CODE REVIEW, AS DID NOT WRITE ALOT ON MY OWN
 //:-
 
 
