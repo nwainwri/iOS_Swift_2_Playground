@@ -46,6 +46,19 @@ let combinedValues = "abc" + 123
  Use the '*' operator to multiply a String and an Int. This returns a new String and repeats the given String the number of times delcared by the Int. ie: "abc" * 3 = "abcabcabc"
  */
 
+func * (left: String, right: Int) -> String {
+  var newString = ""
+  
+  for _ in 1...right {
+    newString += left
+  }
+  return newString
+}
+
+let multipliedDifferentValues = "april" * 3
+
+
+
 
 /*:
  - Experiment:
@@ -58,10 +71,10 @@ let combinedValues = "abc" + 123
 extension Int {
   
   // Comment this function in to try it!
-  //    static func + (left: Int, right: Int) -> Int{
-  //
-  //        return left - right
-  //    }
+      static func + (left: Int, right: Int) -> Int{
+  
+          return left - right
+      }
 }
 
 
@@ -87,6 +100,18 @@ var incrementTwo = incrementOne+++
  Create your own custom operator using the square root symbol here: √
  */
 
+postfix operator  √√√
+postfix func √√√ (number: Int) -> Int {
+  
+  return number % 7
+}
+var doCoolStuff = 100
+var stuffass = doCoolStuff√√√
+
+
+
+
+
 
 /*:
  ### Swift Operators Guidelines
@@ -99,6 +124,16 @@ var incrementTwo = incrementOne+++
  - Callout(Challenge):
  When we have percentage values, we tend to convert them into their decimal form before doing any arithmetic to them. Create an operator with the '%' that will be a convenient operator to convert Int values into a usable percentage value. ie: 10% = 0.1
  */
+
+
+postfix operator %
+postfix func % (number: Int) -> Double {
+  return Double(number) / 100.0
+}
+var turnThisNumberForMe = 100
+var resultOfStuff = turnThisNumberForMe%
+
+
 
 
 /*:

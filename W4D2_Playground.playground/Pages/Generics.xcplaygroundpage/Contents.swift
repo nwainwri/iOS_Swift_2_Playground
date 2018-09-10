@@ -33,7 +33,12 @@ printMyTwoNumbers(num1: "three", num2: "four")
  - Experiment:
  Now you try! Write a generic function that takes in two parameters and multiply their value together and print the result. (Hint: You might run into an error after finishing. Continue to the next experiment to find out why!)
  */
-
+func multiplyExplicitTypes<Element: Numeric>(num1: Element, num2: Element) -> Element {
+  return num1 * num2
+}
+multiplyExplicitTypes(num1: 3, num2: 7)
+multiplyExplicitTypes(num1: 20, num2: 9)
+multiplyExplicitTypes(num1: 4, num2: 18)
 
 /*:
  - Experiment:
@@ -59,6 +64,23 @@ func multiply<Element: Numeric>(num1: Element, num2: Element) {
  - Note:
  For this experiment, refrain from using the array method `indexOf`. Also the protocol `Equatable` might be useful here. Search it up to see what it's about.
  */
+
+var array = [1,2,3,4,5,6]
+var i = 0
+func returningTheIndex<Element: Equatable>(arrayOfElements: [Element], elementInArray: Element) -> Int? {
+  for (index, element) in arrayOfElements.enumerated() {
+    if element == elementInArray {
+      return index
+    }
+  }
+  
+  return nil
+}
+returningTheIndex(arrayOfElements: array, elementInArray: 5)
+
+
+
+
 
 
 

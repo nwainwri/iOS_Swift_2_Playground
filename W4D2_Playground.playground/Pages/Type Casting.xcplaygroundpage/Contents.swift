@@ -28,6 +28,18 @@ let myView: UIView = UIButton()
  - Experiment:
  Try using the `is` operator on `myView`. Take a look at the evaluation on the right to see what the results are. ie: `myView is UIView`. Try checking if `myView` is any of the following views: `UIButton`, `UITableView`, `UIImageView`
  */
+myView is UIView
+myView is UIButton
+myView is UITableView
+myView is UIImageView
+
+
+
+
+
+
+
+
 
 
 /*:
@@ -50,6 +62,13 @@ let myCastedButtonView = myView as? UIButton
  - Experiment:
  Now that we downcast our `myView` to an actual UIButton, use conditional unwrapping to ensure it is not nil, then try calling the `setTitle` method to ensure it can be called.
  */
+if let myCastedButtonView = myView as? UIButton {
+  myCastedButtonView.setTitle("Hi", for: .normal)
+}
+
+
+
+
 
 
 /*:
@@ -67,6 +86,20 @@ view.addSubview(UIButton())
 /*:
  And we need to find all buttons. Write a function to search for `UIButtons` in this view's `subviews`, and return an array will all the buttons.
  */
+func findAllButtons() -> [UIButton] {
+  var buttonArray = [UIButton]()
+  for subview in view.subviews {
+    if let button = subview as? UIButton {
+      buttonArray.append(button)
+    } else {
+      print("you suck")
+    }
+  }
+  return buttonArray
+}
+
+
+
 
 
 /*:
@@ -82,9 +115,19 @@ class MediaItem {
 }
 
 class Movie: MediaItem {
+  var director: String
+  init(name: String, director: String){
+    self.director = director
+    super.init(name: name)
+  }
 }
 
 class Song: MediaItem {
+  var artist: String
+  init(name: String, artist: String){
+    self.artist = artist
+    super.init(name: name)
+  }
 }
 
 /*:
@@ -100,5 +143,28 @@ let library = [
   Song(name: "Never Gonna Give You Up", artist: "Rick Astley")
 ]
 */
+
+let library = [
+  Movie(name: "Casablanca", director: "Michael Curtiz"),
+  Song(name: "Blue Suede Shoes", artist: "Elvis Presley"),
+  Movie(name: "Citizen Kane", director: "Orson Welles"),
+  Song(name: "The One And Only", artist: "Chesney Hawkes"),
+  Song(name: "Never Gonna Give You Up", artist: "Rick Astley")
+]
+
+func printTypeOfMedia(){
+  for mediaType in library {
+    if let movie = mediaType as? Movie {
+      print("Movie", movie.name, movie.director)
+    } else if let song = mediaType as? Song {
+      print("Song", song.name, song.artist)
+    }
+  }
+}
+
+printTypeOfMedia()
+
+
+
 
 //: [Next](@next)

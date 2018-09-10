@@ -29,18 +29,21 @@ var secondTestDouble = testDouble!
  - Experiment:
  Use conditional unwrapping to verify if the optional has a value. Print the value if there is something, otherwise, print out to indicate there is no value present. Why is conditional unwrapping better than force unwrapping?
  */
-if testDouble != nil {
-  //Do Something
+if let double = testDouble {
+  print(double)
+  
+} else {
+  print("DENIED")
 }
-
-
-if let xy = testDouble {
-  print(xy)
-}
-
 
 
 /// DID I DO THIS RIGHT??
+
+
+
+
+
+
 /*:
  - Callout(Challenge):
  Create a function that removes the `nil` values from the array and returns a new array with only the valid Strings.
@@ -103,10 +106,10 @@ var finishedArray = removeNiller(inputArray: testData)
  If the user has filled in everything correctly, we want to print all information out.
  Below is some test data you can use to test your function.
  */
-// Should pass all checks and print all information
-let username: String? = "USER1-"
-let password: String? = "password123"
-let email: String? = "EMuser1@lighthouselabs.ca"
+//// Should pass all checks and print all information
+//let username: String? = "USER1-"
+//let password: String? = "password123"
+//let email: String? = "EMuser1@lighthouselabs.ca"
 
 // Should stop at password check and indicate password field is empty
 //let username: String? = "USER1-"
@@ -117,47 +120,47 @@ let email: String? = "EMuser1@lighthouselabs.ca"
 //let username: String? = nil
 //let password: String? = nil
 //let email: String? = "EMuser1@lighthouselabs.ca"
-var finishedString = String()
-
-func checkAllFields(name: String?, pass: String?, mail: String?) { // ->String {
-  
-  if name != nil
-  {
-    finishedString.append(name!)
-    finishedString.append(" | ")
-    
-    if pass != nil
-    {
-      finishedString.append(pass!)
-      finishedString.append(" | ")
-      if mail != nil
-      {
-        finishedString.append(mail!)
-        finishedString.append(" | ")
-      }
-      else
-      {
-        print("EMAIL FIELD BLANK")
-      }
-    }
-    else
-    {
-      print("PASSWORD FIELD BLANK")
-    }
-  }
-  else
-  {
-    print("USER FIELD BLANK")
-  }
-
-  if (name != nil) && (pass != nil) && (mail != nil){
-    print(finishedString)
-  }
-  //  return finishedString
-}
-//var isitDone:String = checkAllFields(name: username, pass: password, mail: email)
-
-checkAllFields(name: username, pass: password, mail: email)
+//var finishedString = String()
+//
+//func checkAllFields(name: String?, pass: String?, mail: String?) { // ->String {
+//
+//  if name != nil
+//  {
+//    finishedString.append(name!)
+//    finishedString.append(" | ")
+//
+//    if pass != nil
+//    {
+//      finishedString.append(pass!)
+//      finishedString.append(" | ")
+//      if mail != nil
+//      {
+//        finishedString.append(mail!)
+//        finishedString.append(" | ")
+//      }
+//      else
+//      {
+//        print("EMAIL FIELD BLANK")
+//      }
+//    }
+//    else
+//    {
+//      print("PASSWORD FIELD BLANK")
+//    }
+//  }
+//  else
+//  {
+//    print("USER FIELD BLANK")
+//  }
+//
+//  if (name != nil) && (pass != nil) && (mail != nil){
+//    print(finishedString)
+//  }
+//  //  return finishedString
+//}
+////var isitDone:String = checkAllFields(name: username, pass: password, mail: email)
+//
+//checkAllFields(name: username, pass: password, mail: email)
 
 
 /*:
@@ -184,19 +187,16 @@ isMyNumberANegativeValue(myNumber: myNumber)
  - Experiment:
  Try creating your own guard statement with different conditional statements. Notice which boolean condition causes the code the enter the 'else' block or bypass it entirely.
  */
-var someThing:String? = nil
+var someThing = "yes"
 
 func isItReally(string: String){
-  guard someThing != nil else {
-    print("is nil")
+  guard someThing == "nope" else {
+    print("is yes")
     return
   }
+  print("isn't yes")
 }
-
 isItReally(string: someThing)
-
-
-
 
 
 
@@ -207,7 +207,14 @@ isItReally(string: someThing)
  Create a function that takes in two number parameters and divide them. We don't like dividing by zero, so ensure this doesn't happen. Otherwise, return the calculated value.
  */
 
+func divide(first num1:Double, bySecond num2:Double) -> Double? {
+  guard num2 != 0.0 else {
+    return nil
+  }
+  return num1/num2
+}
 
+divide(first: 5.0, bySecond: 1.2)
 
 
 
@@ -247,6 +254,24 @@ isMyNumberAnOptional(myOptionalNumber: myOptionalNumber)
  Create a function that takes in an array of numbers. Have the function add all the numbers together and return the result. Make sure to `guard` against an empty array. Use `array.first` to check if there is at least one value in the array.
  */
 
+var numberedArray: [Double] = [5,2,33,41,15,1]
+func addAllNumbers(numberArray: [Double]) -> Double {
+  
+  guard numberArray.first != nil else {
+    return 0
+  }
+  
+  var sum = 0.0
+  for number in numberArray {
+    sum += number
+  }
+  
+  return sum
+}
+addAllNumbers(numberArray: numberedArray)
+
+
+
 
 
 
@@ -259,6 +284,41 @@ isMyNumberAnOptional(myOptionalNumber: myOptionalNumber)
  - Callout(Challenge):
  Now that we've learnt this new guard statement, let's rewrite the form validation challenge using the guard statements. How does it improve our current implementation?
  */
+// Should pass all checks and print all information
+let username: String? = "USER1-"
+let password: String? = "password123"
+let email: String? = "EMuser1@lighthouselabs.ca"
+
+//// Should stop at password check and indicate password field is empty
+//let username: String? = "USER1-"
+//let password: String? = nil
+//let email: String? = "EMuser1@lighthouselabs.ca"
+
+//// Should stop at username check and indicate username field is empty
+//let username: String? = nil
+//let password: String? = nil
+//let email: String? = "EMuser1@lighthouselabs.ca"
+
+
+func validateUsingGuard() {
+  guard let username = username else {
+    print("You suck username")
+    return
+  }
+  
+  guard let password = password else {
+    print("You suck password")
+    return
+  }
+  guard let email = email else {
+    print("gmails sucks")
+    return
+  }
+}
+
+
+validateUsingGuard()
+
 
 
 

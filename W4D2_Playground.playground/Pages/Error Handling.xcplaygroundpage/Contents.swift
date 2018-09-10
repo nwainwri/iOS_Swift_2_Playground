@@ -55,10 +55,33 @@ catch let error {
  */
 
 
+
+class Human {
+  var name: String
+  var age: Double
+  init(name: String, age: Double)throws {
+    self.name = name
+    self.age = age
+    if (self.name == "") {
+      throw  HumanErrors.NameIsEmpty
+    }
+    if (self.age < 0) {
+      throw  HumanErrors.AgeisntValid
+    }
+  }
+}
+
+
+
 /*:
  - Experiment:
  Create your own errors that throw when the name provided is empty or if the age is invalid. Go back and update the Human's initializer to throw an error when the data passed in is invalid.
  */
+
+enum HumanErrors: Error {
+  case NameIsEmpty
+  case AgeisntValid
+}
 
 
 /*:
@@ -66,12 +89,24 @@ catch let error {
  Now you can test your new Human class and surround it around the do-catch blocks.
  */
 
+do{
+  let human = try Human(name: "April", age: 26)
+}
+  // And here is where we 'catch' the error
+catch let error {
+  
+  // Once 'caught', we can print out the error for more information and prevents our app from crashing
+  print("An error is thrown: \(error)")
+}
+
+
 
 /*:
  - Experiment:
  Test your Human class again but don't surround it with a do-catch block and use `try?` instead. What do you notice? (What is the value of the new human when an error is thrown?)
  */
 
+let nathan = try? Human(name: "albert", age: 37)
 
 /*:
  - Experiment:
@@ -80,6 +115,20 @@ catch let error {
  `class func jsonObject(with data: Data, options opt: JSONSerialization.ReadingOptions = []) throws -> Any`
  */
 let data = "{\"firstName\": \"Bob\", \"lastName\": \"Doe\", \"vehicles\": [\"car\", \"motorcycle\", \"train\"]}".data(using: .utf8)!
+
+
+var json: [String: Any]!
+do {
+  json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+} catch let error {
+  print("Error parsing json: \(error.localizedDescription)")
+}
+
+for (key, value) in json {
+  print("\(key): \(value)")
+}
+
+
 
 
 /*:
@@ -102,6 +151,33 @@ let email: String? = "user1@lighthouselabs.ca"
 //let email: String? = "user1@lighthouselabs.ca"
 
 
+enum UserLeftBlank: Error {
+  case UserNameIsEmpty
+  case PasswordIsEmpty
+  case EmailIsEmpty
+}
+
+func validateIfEmpty() throws {
+  if let username = username {
+    print(username)
+  } else {
+    throw UserLeftBlank.UserNameIsEmpty
+  }
+  if let password = password {
+    print(password)
+  } else {
+    throw UserLeftBlank.PasswordIsEmpty
+  }
+  if let email = email {
+    print(email)
+  } else {
+    throw UserLeftBlank.EmailIsEmpty
+  }
+}
+
+try? validateIfEmpty()
+
+
 /*:
  - Callout(Challenge):
  Given the following HondaDealership class, finish it off by implementing a function and testing it. Write a function that sells off a chosen car for the price.
@@ -110,6 +186,8 @@ let email: String? = "user1@lighthouselabs.ca"
  
  Throw an error if the model doesn't exist, insufficient amount of money was given, or the car is out of stock.
  */
+
+
 class HondaDealership{
   
   var availableCarSupply = ["Civic" : (price: 5000, count: 5),
@@ -117,7 +195,37 @@ class HondaDealership{
                             "Prelude" : (price: 9000, count: 2)]
   
   
+  enum CarStuff: Error {
+    case ModelDoesntExist
+    case DontHaveEnoughMoney
+    case CarOutOfStock
+  }
+  func sellCar(model: String, offeredPrice: Int) throws {
+    if(model != "Civic") || (model != "CRV") || (model != "Prelude") {
+      throw CarStuff.ModelDoesntExist
+    }
+    if ((model == "Civic") && (availableCarSupply["Civic"]!.price < 5000)) || ((model == "CRV") && (availableCarSupply["CRV"]!.price < 7000)) || ((model == "Prelude") && (availableCarSupply["Prelude"]!.price < 9000)) {
+      throw CarStuff.DontHaveEnoughMoney
+    }
+    if ((model == "Civic") && (availableCarSupply["Civic"]!.count == 0)) || ((model == "CRV") && (availableCarSupply["CRV"]!.count == 0))  || ((model == "Prelude") && (availableCarSupply["Prelude"]!.count == 0)) {
+      throw CarStuff.CarOutOfStock
+    }
+  }
   
 }
+
+let newDealership = HondaDealership()
+do{
+  let purchase = try newDealership.sellCar(model: "BMW", offeredPrice: 2600)
+}
+  // And here is where we 'catch' the error
+catch let error {
+  
+  // Once 'caught', we can print out the error for more information and prevents our app from crashing
+  print("An error is thrown: \(error)")
+}
+
+
+
 
 //: [Next](@next)
